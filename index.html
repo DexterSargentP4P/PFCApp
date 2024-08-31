@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Script Runner</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 50px;
+        }
+        button {
+            margin: 10px;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        input[type="text"] {
+            padding: 10px;
+            font-size: 16px;
+            width: 300px;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Run Your Scripts</h1>
+
+    <!-- Input field for Script 1 -->
+    <input type="text" id="message" placeholder="Enter message for Script 1" />
+
+    <!-- Buttons to trigger scripts -->
+    <button onclick="runScript1()">Run Script 1</button>
+    <button onclick="runScript2()">Run Script 2</button>
+    <button onclick="runScript3()">Run Script 3</button>
+
+    <!-- Output display -->
+    <p id="output"></p>
+
+    <script>
+        // Function to handle running Script 1 with input
+        function runScript1() {
+            const message = document.getElementById('message').value;
+            fetch('/run-script-1', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ message: message })
+            })
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('output').textContent = 'Script 1 Output: ' + data;
+            })
+            .catch(error => console.error('Error:', error));
+        }
+
+        // Function to handle running Script 2
+        function runScript2() {
+            fetch('/run-script-2')
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('output').textContent = 'Script 2 Output: ' + data;
+            })
+            .catch(error => console.error('Error:', error));
+        }
+
+        // Function to handle running Script 3
+        function runScript3() {
+            fetch('/run-script-3')
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('output').textContent = 'Script 3 Output: ' + data;
+            })
+            .catch(error => console.error('Error:', error));
+        }
+    </script>
+
+</body>
+</html>
